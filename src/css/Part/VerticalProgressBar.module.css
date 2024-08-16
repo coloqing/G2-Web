@@ -1,0 +1,38 @@
+.top{
+    color: white;
+    display: flex;
+    /* border: 1px solid red; */
+}
+
+.bottom{
+    color:white;
+    /* border: 1px solid #ccc; */
+    display: flex;
+    justify-content: center;
+    margin-top: 0.3vh;
+}
+
+.left{
+    width: 70px;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    /* border: 1px solid #ccc; */
+    margin-right: 2px;
+
+}
+.left span{
+    margin-bottom: 0.8vh;
+}
+
+.right{
+    /* border: 1px solid #ccc; */
+    width: 100px;
+}
+
+.vp{
+    height: 8px;
+    /* background: linear-gradient(to right,#31a7f2,#43f0c8); */
+    /* background-image: linear-gradient(100deg,red 30%,transparent 30%); */
+    margin-top: 2px;
+}

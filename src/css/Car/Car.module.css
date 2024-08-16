@@ -1,0 +1,53 @@
+.topOutset{
+    /* border: 1px solid red; */
+    width: 99.5vw;
+    margin-left: 0.25vw;
+    /* outline: 1px solid red; */
+    overflow:hidden;
+    
+}
+.topInside{
+    height: 18vh;
+    width: 99.5vw;
+    background-color: #191f2e;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    border: 1px solid #404447;
+
+}
+.top {
+    height: 5vh;
+    /* overflow: hidden; */
+    /* border: 1px solid red; */
+}
+
+.Select {
+    margin-top: 0.5vh;
+    margin-left: 1vw;
+}
+
+.train {
+    height: 13vh;
+    /* border: 1px solid red; */
+    /* overflow: hidden; */
+}
+
+.content {
+    /* border: 1px solid red; */
+    height: 80vh;
+}
+
+.borderLine {
+    margin-left: 0.25vw;
+    margin-right: 0.25vw;
+    border: 1px solid #404447;
+    height: 79vh;
+    background-color: #191f2e;
+}
+
+/* 今日预警/报警空调数量 */
+.ktTodayWarningNum {
+    height: 31.5vh;
+    /* height: 100%; */
+    border-bottom: 1px solid #404447;
+}

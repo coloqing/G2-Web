@@ -1,0 +1,22 @@
+.cardContextTop{
+    /* height: 46.5vh; */
+    /* height: 57.8%; */
+    /* border-bottom: 1px solid #626B8B; */
+    overflow: hidden;
+}
+
+.cardContextBottom{
+    height: 34vh;
+    border-top: 1px solid #404447;
+    /* background-color: red; */
+    /* height: 42%; */
+    overflow: hidden;
+}
+
+.line{
+    width: 93%;
+    height: 28vh;
+    /* height: 82.35%; */
+    margin-left: 2.5%;
+    margin-top: 3vh;
+}

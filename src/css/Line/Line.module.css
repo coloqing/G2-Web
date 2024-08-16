@@ -1,0 +1,39 @@
+.main{
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 30vw 38vw 30vw;
+    grid-template-rows:29vh 29vh 38vh;
+    row-gap:1vh;
+    column-gap: 0.5vw;
+    color: white;
+    padding-top: 1vh;
+    padding-left: 0.5vw;
+}
+
+.divItem{
+    border: 1px solid #404447;
+    background-color: #191f2e;
+}
+
+.divItem:nth-child(1){
+    grid-area: 1/1/3/2;
+    /* background-color: darkgoldenrod; */
+}
+.divItem:nth-child(2){
+    grid-area: 1/2/3/3;
+    /* background-color:    wheat; */
+}
+/* 
+.divItem:nth-child(even){
+    background-color:    darkgoldenrod;
+}
+.divItem:nth-child(odd){
+    background-color:  fuchsia;
+} */
+
+.columnChar{
+    width: 23vw;
+    height: 30vh;
+    /* margin-left: 10%; */
+}

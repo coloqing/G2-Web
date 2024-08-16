@@ -1,0 +1,29 @@
+.main {
+    background-color: white;
+    width: 75%;
+    margin-left: calc(17.5% - 0.3vw);
+    padding-top: calc(75% - 0.6vw);
+    border-radius: 50%;
+    text-align: center;
+    margin-top: 2vh;
+}
+
+.mainInside {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 1.35vw;
+}
+
+.mainInsideNum {
+    font-size: 1.4vw;
+    font-weight: bold;
+}
+
+.mainInsideName {
+    font-size: 0.8vw;
+    margin-top: -0.3vw;
+}

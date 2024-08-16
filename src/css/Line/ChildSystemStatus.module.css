@@ -1,0 +1,15 @@
+.main{
+    /* width: 38vw; */
+}
+.top{
+    height: 40vh;
+    background-image: url('../../assets/Line/car_italic.png');
+    background-repeat: no-repeat;
+    background-size: 90% 80%;
+    background-position: center;
+
+}
+.bottom{
+    /* height: 7vh; */
+    /* background-color: antiquewhite; */
+}

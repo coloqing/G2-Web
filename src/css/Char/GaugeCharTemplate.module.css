@@ -1,0 +1,29 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    /* // justifyContent:'center', */
+    align-items: center;
+    width: 99%;
+    height: 99%;
+}
+
+.bottom{
+    width: 80px;
+    /* border: 1px solid blue; */
+    margin-top: -15px;
+    font-size: 16px;
+    position: relative;
+}
+
+.bottom span:first{
+    /* border: 1px solid red; */
+    position: absolute;
+    left: 0;
+}
+
+.bottom span:last-child{
+    text-align: right;
+    /* border: 1px solid red; */
+    right: 0;
+    position: absolute;
+}

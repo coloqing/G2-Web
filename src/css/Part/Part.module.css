@@ -1,0 +1,72 @@
+.borderLine {
+    margin-left: 0.25vw;
+    margin-right: 0.25vw;
+    border: 1px solid #404447;
+    height: 79vh;
+}
+.topOutset{
+    /* border: 1px solid red; */
+    width: 99.5vw;
+    margin-left: 0.25vw;
+    /* outline: 1px solid red; */
+    overflow:hidden;
+    
+}
+.topInside{
+    height: 32vh;
+    width: 99.5vw;
+    background-color: #191f2e;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    border: 1px solid #404447;
+
+}
+.top {
+    height: 5vh;
+}
+
+.top .Select {
+    margin-top: 0.5vh;
+    margin-left: 1vw;
+}
+
+.train {
+    height: 12vh;
+    /* border: 1px solid blue; */
+}
+
+.trainStatus {
+    height: 14vh;
+    /* border: 1px solid green; */
+}
+
+.content {
+    height: 66vh;
+    /* border: 1px solid red; */
+    margin-left: 0.25vw;
+}
+
+.bottomLeft {
+    width: 98%;
+    height: 65vh;
+    border: solid 1px #404447;
+    /* margin-left: 0.5vw; */
+}
+
+.bottomright {
+    width: 99.5%;
+}
+
+.bottomrightImg {
+    width: 100%;
+    height: 40vh;
+    border: solid 1px #404447;
+}
+
+.bottomrightKeyData {
+    width: 100%;
+    height: 24vh;
+    /* border: solid 1px #517992; */
+    margin-top: 1vh;
+    display: flex;
+}

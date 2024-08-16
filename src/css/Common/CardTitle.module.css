@@ -1,0 +1,26 @@
+.left {
+    width: 1vw;
+    height: 3vh;
+    font-size: 1vw;
+    float: right;
+    margin-right: 50%;
+    background-color: #20B0B8;
+
+}
+
+.center {
+    font-size: 0.9vw;
+    float: left;
+    color: #03b0ff;
+}
+
+
+.right {
+    width: 1.6vw;
+    font-size: 1vw;
+    float: left;
+    margin-left: 0.4vw;
+    background-color: #1a44ab;
+    border-radius: 50%;
+    text-align: center;
+}

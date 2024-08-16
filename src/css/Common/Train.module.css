@@ -1,0 +1,37 @@
+.trainHead {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.carBase{
+    width: 86%;
+    margin-left: 7%;
+    height: 55%;
+    margin-top: 7%;
+    opacity: 0.5;
+    will-change: opacity;
+}
+
+.red {
+    background-color: rgb(255, 0, 0);
+}
+.yellow {
+    
+    background-color: yellow;
+}
+.green {
+    background-color: green;
+}
+
+.animation{
+    animation: bounce 1s linear infinite alternate;
+}
+
+@keyframes bounce {
+    0% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 0.8;
+    }
+}

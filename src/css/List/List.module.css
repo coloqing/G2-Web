@@ -1,0 +1,31 @@
+.main {
+    /* height: 100vh; */
+    width: 100vw;
+}
+
+.top {
+    height: 10vh;
+    /* border: 1px solid gray; */
+    padding-top: 3vh;
+    padding-left: 1vw;
+}
+
+.bottom {
+    min-height: 90vh;
+    
+    /* border: 1px solid gray; */
+    /* position: relative; */
+}
+
+.table{
+    border-bottom: 1px solid gray;
+    /* position:absolute; */
+    display: flex;
+}
+
+.pagin{
+    /* position:absolute; */
+    /* right: 0; */
+    margin-top:2vh;
+    /* margin-left: 50%; */
+}

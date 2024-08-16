@@ -1,0 +1,10 @@
+.keyIndicatorsTop {
+    height: 11vh;
+    display: flex;
+}
+
+.keyIndicatorsBottom {
+    display: grid;
+    grid-template-columns: 12fr 35fr 6fr 35fr 12fr;
+    grid-template-rows: 4vh 4vh;
+}
