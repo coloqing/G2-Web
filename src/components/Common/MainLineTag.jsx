@@ -14,7 +14,11 @@ export default function MainLineTag(props) {
     sty.backgroundColor = "#0f3116";
     sty.color = "#41a751";
   }
-  if (name === "离线") {
+  else if (name === "库内") {
+    sty.backgroundColor = "#0f3116";
+    sty.color = "#41a751";
+  }
+  else if (name === "离线") {
     sty.backgroundColor = "#2d3341";
     sty.color = "#7d88a3";
   }
