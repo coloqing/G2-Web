@@ -99,10 +99,11 @@ function Line() {
       <div className={classNames(styles.divItem, "")}>
         <Card
           title={<CardTitle title="子系统设备状态" />}
-          bodyStyle={cardBodyStyle}
+          // bodyStyle={cardBodyStyle}
+          bodyStyle={{padding:'0',height:'55vh',display:'flex',justifyContent:'center',alignItems:'center'}}
           headStyle={cardHeadStyle}
         >
-          <ChildSystemStatus {...carStatus} />
+          <ChildSystemStatus {...carStatus}/>
         </Card>
       </div>
       <div className={classNames(styles.divItem, "")}>

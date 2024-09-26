@@ -11,7 +11,9 @@
 .center {
     font-size: 0.9vw;
     float: left;
-    color: #03b0ff;
+    /* color: #03b0ff; */
+    color: #ffffffe6;
+    font-weight: 600;
 }
 
 

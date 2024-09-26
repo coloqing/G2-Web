@@ -1,15 +1,48 @@
-.main{
-    /* width: 38vw; */
-}
-.top{
-    height: 40vh;
-    background-image: url('../../assets/Line/car_italic.png');
-    background-repeat: no-repeat;
-    background-size: 90% 80%;
-    background-position: center;
+.main {
+  width: 38vw;
 
 }
-.bottom{
-    /* height: 7vh; */
-    /* background-color: antiquewhite; */
+.top {
+  height: 40vh;
+  background-image: url("../../assets/Line/car_italic.png");
+  background-repeat: no-repeat;
+  background-size: 90% 80%;
+  background-position: center;
+}
+.bottom {
+  /* height: 7vh; */
+  /* background-color: antiquewhite; */
+}
+
+.subsystem_txt[_ngcontent-wfa-c558] {
+  color: #7094e5;
+  font-weight: 400;
+  font-size: 20px;
+  font-family: SourceHanSansCN-Bold;
+  line-height: 1;
+  text-align: center;
+}
+.subsystem_txt_en[_ngcontent-wfa-c558] {
+  color: #6d91e0;
+  font-weight: 900;
+  font-size: 20px;
+  font-family: SourceHanSansCN-Bold;
+  line-height: 1;
+  text-align: center;
+}
+.fault_trainnos[_ngcontent-wfa-c558] {
+  font-weight: 400;
+  font-size: 22px;
+  font-family: BebasNeue;
+  line-height: 1.2;
+  text-align: center;
+}
+.normal_green[_ngcontent-wfa-c558] {
+  color: #60ae46;
+}
+.warn_orange[_ngcontent-wfa-c558] {
+  color: #f90;
+}
+.fault_red[_ngcontent-wfa-c558] {
+  color: #d94746;
 }

@@ -17,24 +17,33 @@ export default function LifePrediction(props) {
   //   }
   //   if (charParam.xdid) getData1(charParam);
   // }, [charParam,timer]);
-
+  // console.log('寿命预测信息', props);
   const data = props.data ? props.data : [];
   const columns = [
     {
-      title: "车箱",
+      title: "车厢",
       dataIndex: "cxh",
       key: "cxh",
       width: "3.2vw",
       ellipsis: true,
-      render: (cxh, row) => (
-        <Link
-          style={{ color: "white", textDecoration: "underLine" }}
-          to={`/Part?car=${row.lch}&part=${row.cxh}`}
-        >
-          {cxh}
-        </Link>
-      ),
-      align:'center',
+      render: (cxh, row) => {
+        // // 假设row中有一个status属性，用于决定颜色  
+        // let textColor = 'white'; // 默认颜色  
+        // if (row.sbid < 500) {
+        //   textColor = 'green'; // 激活状态为绿色  
+        // } else if (row.sbid > 500) {
+        //   textColor = 'grey'; // 非激活状态为灰色  
+        // }
+        return (
+          <Link
+            style={{ color: "white", textDecoration: "underLine" }}
+            to={`/Part?car=${row.lch}&part=${row.cxh}`}
+          >
+            {cxh}
+          </Link>
+        )
+      },
+      align: 'center',
     },
     {
       title: "位置",
@@ -42,7 +51,7 @@ export default function LifePrediction(props) {
       key: "componentPosition",
       width: "3vw",
       ellipsis: true,
-      align:'center',
+      align: 'center',
     },
     {
       title: "部件名称",
@@ -50,7 +59,7 @@ export default function LifePrediction(props) {
       key: "componentName",
       width: "6vw",
       ellipsis: true,
-      align:'center',
+      align: 'center',
     },
     {
       title: "已耗寿命(h)",
@@ -58,7 +67,7 @@ export default function LifePrediction(props) {
       key: "usedLifespan",
       ellipsis: true,
       width: "3vw",
-      align:'center',
+      align: 'center',
     },
     {
       title: "剩余寿命(h)",
@@ -73,11 +82,11 @@ export default function LifePrediction(props) {
           data={record.leaveLifespan}
         />
       ),
-      align:'center',
+      align: 'center',
     },
   ];
   function changeRowIndex(row) {
-    
+
   }
 
   return (
