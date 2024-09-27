@@ -91,7 +91,7 @@ export default function List(props) {
       render: (key, row, index) => index + 1,
     },
     {
-      title: "车箱",
+      title: "车厢",
       dataIndex: "cxh",
       key: "cxh",
       width: "5vw",

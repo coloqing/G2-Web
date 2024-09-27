@@ -227,10 +227,10 @@ export default function ChildSystemStatus(props) {
           					fill="url(#pattern17)" fillOpacity="0.45"></rect>
           			</g>
           			<foreignObject _ngcontent-wfa-c558="" x="391" y="275" width="85" height="30">
-          				<div _ngcontent-wfa-c558="" className={styles.subsystem_txt}> 牵引系统 </div>
+          				<div _ngcontent-wfa-c558="" className={styles.subsystem_txt}> 空调系统 </div>
           			</foreignObject>
           			<foreignObject _ngcontent-wfa-c558="" x="391" y="301" width="85" height="30">
-          				<div _ngcontent-wfa-c558="" className={styles.subsystem_txt_en}> TCU </div>
+          				<div _ngcontent-wfa-c558="" className={styles.subsystem_txt_en}> HVAC </div>
           			</foreignObject>
           			<foreignObject _ngcontent-wfa-c558="" x="257" y="345" width="65" height="32">
           				<div _ngcontent-wfa-c558="" className={`${styles.fault_trainnos} ${styles.normal_green}`}> {props.normal ?? 0}/13 </div>

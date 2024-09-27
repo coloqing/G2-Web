@@ -43,7 +43,7 @@ export default function FaultAlarm(props) {
 
   const columns = [
     {
-      title: "车箱",
+      title: "车厢",
       dataIndex: "cxh",
       key: "cxh",
       width: "3.2vw",
