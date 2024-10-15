@@ -4,9 +4,10 @@ import stylesPublic from "../css/Common/ThreeBlock.module.css";
 import MyTable from "./Common/MyTable";
 import ProgressBar from "../components/Common/ProgressBar";
 // import LineCharTemplate from "./Chars/LineCharTemplate";
-// import commonApiController from "../api/common";
+import commonApiController from "../api/common";
 import { Link } from "react-router-dom";
-
+import { Button } from "antd";
+ 
 export default function LifePrediction(props) {
   // const [charData, setCharData] = useState({});
   // const [charParam, setcharParam] = useState({ xdid: "", dateTime: "" ,cxh:'' });
@@ -18,7 +19,7 @@ export default function LifePrediction(props) {
   //   if (charParam.xdid) getData1(charParam);
   // }, [charParam,timer]);
   // console.log('寿命预测信息', props);
-  const data = props.data ? props.data : [];
+  var data = props.data ? props.data : []; 
   const columns = [
     {
       title: "车厢",
@@ -84,7 +85,38 @@ export default function LifePrediction(props) {
       ),
       align: 'center',
     },
+      {
+      title: "操作",
+      ellipsis: true,
+      render: (text, record, index) => (
+        <Button
+              type="text"
+              block
+              style={{
+                width: "3.5vw",
+                height: "3.5vh",
+                fontWeight: "bold",
+              }}
+              onClick={() => resetLifeVal(record.id)}
+            >
+              重置
+            </Button>
+      ),
+      align: 'center',
+    },
   ];
+
+  async function resetLifeVal(id){ 
+   await commonApiController.UpdateLifePredictionApi(id);
+
+   await getData5(0)
+  }
+
+  async function getData5(id) {    
+      const result = await commonApiController.LifePredictionListApi(id);
+      data = result.data
+    }
+
   function changeRowIndex(row) {
 
   }

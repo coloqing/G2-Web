@@ -65,12 +65,22 @@ const LifePredictionListApi = function (carId) {
   });
 };
 
+const UpdateLifePredictionApi = function (ids) {
+  return service({
+    url: "/api/Common/UpdateLifePrediction",
+    method: "GET",
+    params: {
+      ids,
+    },
+  });
+};
+
 const CharDataApi = function (data) {
   return service({
     url: "/api/Common/CharData",
     method: "GET",
     params: {
-      ...data
+      ...data,
     },
   });
 };
@@ -79,7 +89,7 @@ const CarColorListApi = function (carId) {
     url: "/api/Common/CarColorList",
     method: "GET",
     params: {
-      carId
+      carId,
     },
   });
 };
@@ -88,7 +98,7 @@ const apiController = {
   CarCarriageListApi,
 
   FaultAlertNumTodayApi,
-
+  UpdateLifePredictionApi,
   FaultAlarmListApi,
   StatusAlertListApi,
   LifePredictionListApi,
