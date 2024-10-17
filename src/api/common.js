@@ -94,9 +94,52 @@ const CarColorListApi = function (carId) {
   });
 };
 
+const FaultToExcelApi = function (id, cxh) {
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", window.MyConfig.baseUrl + "/api/List/FaultToExcel?id=" + id);
+  xhr.responseType = "blob";
+  xhr.onload = function () {
+    let blob = this.response;
+    let a = document.createElement("a");
+    a.href = window.URL.createObjectURL(blob);
+    let fileName = "故障预警导出-" + cxh + ".xlsx";
+    a.download = fileName;
+    a.click();
+  };
+  xhr.send();
+};
+
+const DataToExcel = function (search, lch, cxh) {
+  if (lch === "全部") lch = "";
+  if (cxh === "全部") cxh = "";
+  let xhr = new XMLHttpRequest();
+  xhr.open(
+    "GET",
+    window.MyConfig.baseUrl +
+      "/api/List/DataToExcel?lch=" +
+      lch +
+      "&cxh=" +
+      cxh +
+      "&startTime=" +
+      search.dateStart +
+      "&endTime=" +
+      search.dateEnd
+  );
+  xhr.responseType = "blob";
+  xhr.onload = function () {
+    let blob = this.response;
+    let a = document.createElement("a");
+    a.href = window.URL.createObjectURL(blob);
+    let fileName = "故障预警导出-" + lch + ".xlsx";
+    a.download = fileName;
+    a.click();
+  };
+  xhr.send();
+};
+
 const apiController = {
   CarCarriageListApi,
-
+  FaultToExcelApi,
   FaultAlertNumTodayApi,
   UpdateLifePredictionApi,
   FaultAlarmListApi,
@@ -104,6 +147,7 @@ const apiController = {
   LifePredictionListApi,
   CharDataApi,
   CarColorListApi,
+  DataToExcel,
 };
 
 export default apiController;

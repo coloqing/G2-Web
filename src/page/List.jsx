@@ -5,10 +5,11 @@ import listApiController from "../api/list";
 import GradeTag from "../components/Common/GradeTag";
 import { Link } from "react-router-dom";
 import MyTable from "../components/Common/MyTable";
-
+import commonApiController from "../api/common";
 import {_getCarList,} from "../Redux/carListSlice";
 import styles from "../css/List/List.module.css";
 import locale from "antd/es/date-picker/locale/zh_CN";
+import { Button } from "antd";
 // import "dayjs/locale/zh-cn";
 
 export default function List(props) {
@@ -145,7 +146,40 @@ export default function List(props) {
       ),
       align:'center',
     },
+    {
+      title: "操作",
+      ellipsis: true,
+      render: (text, record, index) =>{ 
+        if(record.type === '3')
+        return <Button
+              type="text"
+              block
+              style={{
+                width: "4vw",
+                height: "3.5vh",
+                fontWeight: "bold",
+              }}
+              onClick={() => download10(record.id,record.cxh)}
+            >
+              下载日志
+            </Button>
+        },
+      align: 'center',
+    },
   ];
+
+  function download10 (id,cxh) {
+    commonApiController.FaultToExcelApi(id,cxh);
+  };
+
+  function download () {
+    let newSearch = { ...search };
+    let clist = { ...carList}; 
+    let crlist = { ...carriageList}; 
+    let lch = Object.values(clist).find(x=>x.id ===  newSearch.carId).carName;
+    let cxh = Object.values(crlist).find(x=>x.id ===  newSearch.carriageId).name;
+    commonApiController.DataToExcel(newSearch,lch,cxh);
+  };
 
   const dateChanged = (date, dateString) => {
     let newSearch = { ...search };
@@ -239,6 +273,18 @@ export default function List(props) {
             onChange={dateChanged}
             class={styles.picker}
           />
+           <Button
+              type="text"
+              block
+              style={{
+                width: "4vw",
+                height: "3.5vh",
+                fontWeight: "bold",
+              }}
+              onClick={() => download()}
+            >
+              导出
+            </Button>
           <div
             style={{
               position: "absolute",
