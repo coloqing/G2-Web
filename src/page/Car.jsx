@@ -142,7 +142,7 @@ function Car() {
                 <div style={{ display: "flex", justifyContent: "end" }}>
                   <Select
                     value={pieTypeTime}
-                    style={{ width: "5vw", height: 24 }}
+                    style={{ width: "8vw", height: 24 }}
                     onChange={(value) => {
                       setPieTypeTime(value);
                     }}
@@ -196,7 +196,7 @@ function Car() {
                 </Button>
               }
             >
-              <FaultAlarm data={faultAlarmList} tableHeight={37} />
+              <FaultAlarm data={faultAlarmList} tableHeight={71} />
             </Card>
           </div>
         </Col>
@@ -221,7 +221,7 @@ function Car() {
                 </Button>
               }
             >
-              <StatusAlert data={statusAlertList} tableHeight={37} />
+              <StatusAlert data={statusAlertList} tableHeight={71} />
             </Card>
           </div>
         </Col>

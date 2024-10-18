@@ -137,7 +137,7 @@ export default function StatusAlert(props) {
           setClickRow={setClickRow}
         />
       </div>
-      {props.hideChar === true ? null : (
+      {/* {props.hideChar === true ? null : (
         <div className={stylesPublic.cardContextBottom}>
           <div className={stylesPublic.line}>
             {charData?.type === "line" ? (
@@ -145,7 +145,7 @@ export default function StatusAlert(props) {
             ) : null}
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 }

@@ -137,7 +137,7 @@ export default function FaultAlarm(props) {
           setClickRow={setClickRow}
         />
       </div>
-      {props.hideChar === true ? null : (
+      {/* {props.hideChar === true ? null : (
         <div className={stylesPublic.cardContextBottom}>
           <div className={stylesPublic.line}>
             {charData?.type === "line" ? (
@@ -145,7 +145,7 @@ export default function FaultAlarm(props) {
             ) : null}
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 }

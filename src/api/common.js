@@ -65,6 +65,18 @@ const LifePredictionListApi = function (carId) {
   });
 };
 
+const LifePredictionPageListApi = function (carId, pageIndex, pageSize) {
+  return service({
+    url: "/api/Common/LifePredictionPageList",
+    method: "GET",
+    params: {
+      carId,
+      pageIndex,
+      pageSize,
+    },
+  });
+};
+
 const UpdateLifePredictionApi = function (ids) {
   return service({
     url: "/api/Common/UpdateLifePrediction",
@@ -116,7 +128,7 @@ const DataToExcel = function (search, lch, cxh) {
   xhr.open(
     "GET",
     window.MyConfig.baseUrl +
-      "/api/List/DataToExcel?lch=" +
+      "/api/List/FaultDataToExcel?lch=" +
       lch +
       "&cxh=" +
       cxh +
@@ -148,6 +160,7 @@ const apiController = {
   CharDataApi,
   CarColorListApi,
   DataToExcel,
+  LifePredictionPageListApi,
 };
 
 export default apiController;

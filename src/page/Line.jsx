@@ -165,7 +165,7 @@ function Line() {
           <div style={{ display: "flex", justifyContent: "end" }}>
             <Select
               value={faultParam.lastMonth}
-              style={{ width: "5vw", height: 24 }}
+              style={{ width: "8vw", height: 24 }}
               onChange={(value) => {
                 setFaultParam({ ...faultParam, lastMonth: value });
               }}
@@ -197,7 +197,7 @@ function Line() {
           <div style={{ display: "flex", justifyContent: "end" }}>
             <Select
               value={alarmParam.lastMonth}
-              style={{ width: "5vw", height: 24 }}
+              style={{ width: "8vw", height: 24 }}
               onChange={(value) => {
                 setAlarmParam({ ...alarmParam, lastMonth: value });
               }}
@@ -225,6 +225,20 @@ function Line() {
           title={<CardTitle title="寿命预测信息" />}
           bodyStyle={cardBodyStyle}
           headStyle={cardHeadStyle}
+           extra={
+            <Button
+              type="text"
+              block
+              style={{
+                width: "3.5vw",
+                height: "3.5vh",
+                fontWeight: "bold",
+              }}
+              onClick={() => navigate("/PartLifeList")}
+            >
+              更多
+            </Button>
+          }
         >
           <LifePrediction data={lifePredictionList} tableHeight={30} />
         </Card>

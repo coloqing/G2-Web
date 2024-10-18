@@ -1,5 +1,6 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import Line from "./page/Line";
+import PartLifeList from "./page/PartLifeList";
 import Car from "./page/Car";
 import Part from "./page/Part";
 import List from "./page/List";
@@ -15,7 +16,6 @@ import TestDemo from "./components/Demo/TestDemo";
 import ColumnDemo from "./components/Demo/ColumnDemo";
 
 import Error from "./page/Error";
-
 
 import { setTime } from "./Redux/timerSlice";
 import { useDispatch } from "react-redux";
@@ -49,7 +49,7 @@ function App() {
             // colorTextHeading: "#15b4c7",
             colorTextHeading: "#ffffffe6",
             headerSplitColor: "#191f2e",
-            fontSize: "0.65vw",
+            fontSize: "0.95vw",
             headerBg: "#191f2e",
             borderColor: "#191f2e",
             rowHoverBg: "#045c84",
@@ -89,7 +89,7 @@ function App() {
             borderRadius: 2,
             contentFontSize: "0.8vw",
             primaryColor: "white",
-            colorText:'#03b0ff',
+            colorText: "#03b0ff",
           },
           DatePicker: {
             borderRadiusOuter: "0",
@@ -137,6 +137,7 @@ function App() {
           <Route path="/Car" element={<Car />} />
           <Route path="/Part" element={<Part />} />
           <Route path="/List" element={<List />} />
+          <Route path="/PartLifeList" element={<PartLifeList />} />
 
           <Route path="/LineDemo" element={<LineDemo />} />
           <Route path="/PieDemo" element={<PieDemo />} />
