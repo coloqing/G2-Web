@@ -77,12 +77,13 @@ const LifePredictionPageListApi = function (carId, pageIndex, pageSize) {
   });
 };
 
-const UpdateLifePredictionApi = function (ids) {
+const UpdateLifePredictionApi = function (ids,value) {
   return service({
     url: "/api/Common/UpdateLifePrediction",
     method: "GET",
     params: {
-      ids,
+      ids: ids,
+      servicelife:value,
     },
   });
 };

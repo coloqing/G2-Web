@@ -1,0 +1,32 @@
+.custom-modal .ant-modal-content {
+    background-color: #191f2e;
+    /* 设置弹窗背景颜色 */
+    color: white;
+    /* 设置文本颜色为白色 */
+}
+
+.custom-modal .ant-modal-content .ant-modal-title {
+    background-color: #191f2e;
+    color: #ffffe6;
+}
+
+.custom-modal .ant-modal-content .ant-modal-body {}
+
+.custom-modal .ant-modal-footer {
+    background-color: #191f2e;
+    /* 如果需要可设置底部的背景色 */
+}
+
+.custom-modal .ant-btn {
+    background-color: #191f2e;
+    /* 按钮背景色 */
+    color: white;
+    /* 按钮文字颜色 */
+    border: 1px solid white;
+    /* 按钮边框色 */
+}
+
+.custom-modal .ant-btn:hover {
+    background-color: #333;
+    /* 按钮悬停时的背景色 */
+}

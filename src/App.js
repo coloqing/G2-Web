@@ -45,8 +45,9 @@ function App() {
           },
           Table: {
             colorBgContainer: "#191f2e",
-            colorText: "#ffffff",
+            colorText: "#ffffffe6",
             // colorTextHeading: "#15b4c7",
+            // colorTextHeading: "#ffffffe6",
             colorTextHeading: "#ffffffe6",
             headerSplitColor: "#191f2e",
             fontSize: "0.95vw",

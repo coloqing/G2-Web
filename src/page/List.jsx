@@ -6,7 +6,7 @@ import GradeTag from "../components/Common/GradeTag";
 import { Link } from "react-router-dom";
 import MyTable from "../components/Common/MyTable";
 import commonApiController from "../api/common";
-import {_getCarList,} from "../Redux/carListSlice";
+import { _getCarList, _getCarLists, } from "../Redux/carListSlice";
 import styles from "../css/List/List.module.css";
 import locale from "antd/es/date-picker/locale/zh_CN";
 import { Button } from "antd";
@@ -32,19 +32,53 @@ export default function List(props) {
 
   const carListStore = useSelector((state) => state.carList.carList);
   if (!carListStore.length) dispatch(_getCarList());
+  const markStore = useSelector((state) => state.carList.mark);
 
   useEffect(() => {
     if (carListStore.length) {
-      setCarList([{ id: 0, carName: "全部",carriageList:[] }].concat(carListStore))
+      setCarList([{ id: 0, carName: "全部", carriageList: [] }].concat(carListStore))
     }
-  }, [carListStore]);
+    if (!markStore.length) {
+      dispatch(_getCarLists());
+    }
+  }, [carListStore, markStore.length]);
+  // ====================
+  const arr = [{ id: 0, carName: "全部" }];
+  // 检查 markStore 和 carListStore 中的匹配
+  if (markStore.length > 0 && carListStore.length > 0) {
+    markStore.forEach(markItem => {
+      carListStore.forEach(carItem => {
+        if (markItem.lch === carItem.carName) {
+          // 如果条件匹配，创建对象并添加到 arr 数组中
+          arr.push({
+            carName: carItem.carName,
+            id: carItem.id,
+            mainLine: markItem.mainLine || '', // 假设 markItem 中有 mainLine 属性
+            carriageList: carItem.carriageList
+          });
+        }
+        arr.sort((a, b) => {
+          if (a.mainLine === '离线' && b.mainLine !== '离线') {
+            return 1; // a 在 b 后面
+          } else if (a.mainLine !== '离线' && b.mainLine === '离线') {
+            return -1; // a 在 b 前面
+          }
+          return 0; // 保持原来的顺序
+        });
 
+      });
+    });
+    // console.log('符合条件的对象数组:', arr);
+  }
   /**
    * car 下拉
    * @param {} value
    * @param {*} options
    */
   const onCarChange = (value, options) => {
+    let tmp = options.label.props.children;
+    options = { label: tmp, value: value }
+
     const selectCarItem = carList.find((item) => {
       return item.id === value;
     });
@@ -105,7 +139,7 @@ export default function List(props) {
           {cxh}
         </Link>
       ),
-      align:'center',
+      align: 'center',
     },
     {
       title: "故障名称",
@@ -113,7 +147,7 @@ export default function List(props) {
       key: "name",
       width: "15vw",
       ellipsis: true,
-      align:'center',
+      align: 'center',
     },
     {
       title: "故障时间",
@@ -121,7 +155,7 @@ export default function List(props) {
       key: "dateTime",
       ellipsis: true,
       width: "15vw",
-      align:'center',
+      align: 'center',
     },
     {
       title: "等级",
@@ -130,7 +164,7 @@ export default function List(props) {
       width: "10vw",
       render: (grade) => <GradeTag>{grade}</GradeTag>,
       ellipsis: true,
-      align:'center',
+      align: 'center',
     },
     {
       title: "解决建议",
@@ -144,41 +178,41 @@ export default function List(props) {
           {solution}
         </Tooltip>
       ),
-      align:'center',
+      align: 'center',
     },
     {
       title: "操作",
       ellipsis: true,
-      render: (text, record, index) =>{ 
-        if(record.type === '3')
-        return <Button
-              type="text"
-              block
-              style={{
-                width: "4vw",
-                height: "3.5vh",
-                fontWeight: "bold",
-              }}
-              onClick={() => download10(record.id,record.cxh)}
-            >
-              下载日志
-            </Button>
-        },
+      render: (text, record, index) => {
+        if (record.type === '3')
+          return <Button
+            type="text"
+            block
+            style={{
+              width: "4vw",
+              height: "3.5vh",
+              fontWeight: "bold",
+            }}
+            onClick={() => download10(record.id, record.cxh)}
+          >
+            下载日志
+          </Button>
+      },
       align: 'center',
     },
   ];
 
-  function download10 (id,cxh) {
-    commonApiController.FaultToExcelApi(id,cxh);
+  function download10(id, cxh) {
+    commonApiController.FaultToExcelApi(id, cxh);
   };
 
-  function download () {
+  function download() {
     let newSearch = { ...search };
-    let clist = { ...carList}; 
-    let crlist = { ...carriageList}; 
-    let lch = Object.values(clist).find(x=>x.id ===  newSearch.carId).carName;
-    let cxh = Object.values(crlist).find(x=>x.id ===  newSearch.carriageId).name;
-    commonApiController.DataToExcel(newSearch,lch,cxh);
+    let clist = { ...carList };
+    let crlist = { ...carriageList };
+    let lch = Object.values(clist).find(x => x.id === newSearch.carId).carName;
+    let cxh = Object.values(crlist).find(x => x.id === newSearch.carriageId).name;
+    commonApiController.DataToExcel(newSearch, lch, cxh);
   };
 
   const dateChanged = (date, dateString) => {
@@ -205,7 +239,9 @@ export default function List(props) {
     border: "1px solid #517992",
   };
 
+
   return (
+
     <div className={styles.main}>
       <div className={styles.top}>
         <Space
@@ -225,10 +261,18 @@ export default function List(props) {
               width: 120,
             }}
             onChange={onCarChange}
-            options={carList.map((element) => ({
-              label: element.carName,
+            options={arr.map((element) => ({
+              label: (
+                <span style={{ color: element.mainLine === '离线' ? 'rgb(125, 136, 163)' : (element.mainLine === '正线' ? 'rgb(65, 167, 81)' : '#1adaeb') }}>
+                  {element.carName}
+                </span>
+              ),
               value: element.id,
             }))}
+            // options={carList.map((element) => ({
+            //   label: element.carName,
+            //   value: element.id,
+            // }))}
             dropdownStyle={selectStyle}
           />
           车厢
@@ -273,18 +317,18 @@ export default function List(props) {
             onChange={dateChanged}
             class={styles.picker}
           />
-           <Button
-              type="text"
-              block
-              style={{
-                width: "4vw",
-                height: "3.5vh",
-                fontWeight: "bold",
-              }}
-              onClick={() => download()}
-            >
-              导出
-            </Button>
+          <Button
+            type="text"
+            block
+            style={{
+              width: "4vw",
+              height: "3.5vh",
+              fontWeight: "bold",
+            }}
+            onClick={() => download()}
+          >
+            导出
+          </Button>
           <div
             style={{
               position: "absolute",
@@ -303,7 +347,7 @@ export default function List(props) {
           <MyTable
             data={data}
             columns={columns}
-            // height={"20vh"}
+          // height={"20vh"}
           />
         </div>
         <div className={styles.pagin}>

@@ -1,4 +1,5 @@
 // import { useEffect, useState } from "react";
+import React, { forwardRef, useImperativeHandle } from 'react';
 import stylesPublic from "../css/Common/ThreeBlock.module.css";
 
 import MyTable from "./Common/MyTable";
@@ -7,8 +8,14 @@ import ProgressBar from "../components/Common/ProgressBar";
 import commonApiController from "../api/common";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
- 
-export default function LifePrediction(props) {
+// import { handleResetClick } from "../page/Line";
+
+// export default function LifePrediction(props,ref) {
+  const LifePrediction =  forwardRef((props, ref) => {
+    // 暴露的方法
+    useImperativeHandle(ref, () => ({
+      resetLifeVal,
+    }));
   // const [charData, setCharData] = useState({});
   // const [charParam, setcharParam] = useState({ xdid: "", dateTime: "" ,cxh:'' });
   // useEffect(() => {
@@ -19,7 +26,7 @@ export default function LifePrediction(props) {
   //   if (charParam.xdid) getData1(charParam);
   // }, [charParam,timer]);
   // console.log('寿命预测信息', props);
-  var data = props.data ? props.data : []; 
+  var data = props.data ? props.data : [];
   const columns = [
     {
       title: "车厢",
@@ -85,37 +92,40 @@ export default function LifePrediction(props) {
       ),
       align: 'center',
     },
-      {
+    {
       title: "操作",
       ellipsis: true,
       render: (text, record, index) => (
         <Button
-              type="text"
-              block
-              style={{
-                width: "3.5vw",
-                height: "3.5vh",
-                fontWeight: "bold",
-              }}
-              onClick={() => resetLifeVal(record.id)}
-            >
-              重置
-            </Button>
+          type="text"
+          block
+          style={{
+            width: "3.5vw",
+            height: "3.5vh",
+            fontWeight: "bold",
+          }}
+          // onClick={() => resetLifeVal(record.id)}
+          onClick={() => props.onReset(record.id)}
+        >
+          重置
+        </Button>
       ),
       align: 'center',
     },
   ];
 
-  async function resetLifeVal(id){ 
-   await commonApiController.UpdateLifePredictionApi(id);
+  async function resetLifeVal(id,value) {
+    // console.log("重置寿命", id,value);
+    
+    await commonApiController.UpdateLifePredictionApi(id,value);
 
-   await getData5(0)
+    await getData5(0)
   }
 
-  async function getData5(id) {    
-      const result = await commonApiController.LifePredictionListApi(id);
-      data = result.data
-    }
+  async function getData5(id) {
+    const result = await commonApiController.LifePredictionListApi(id);
+    data = result.data
+  }
 
   function changeRowIndex(row) {
 
@@ -132,8 +142,11 @@ export default function LifePrediction(props) {
           columns={columns}
           height={props.tableHeight + "vh"}
           changeRowIndex={changeRowIndex}
+          onReset={resetLifeVal}
         />
+
       </div>
+
       {/* <div className={stylesPublic.cardContextBottom}>
         <div className={stylesPublic.line}>
           {charData?.type === "line" ? (
@@ -143,4 +156,6 @@ export default function LifePrediction(props) {
       </div> */}
     </>
   );
-}
+})
+// 确保导出组件
+export default LifePrediction;

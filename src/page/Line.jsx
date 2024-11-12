@@ -1,6 +1,7 @@
-import { Button, Card, Select } from "antd";
-import { useEffect, useState } from "react";
+import { Button, Card, Select, Modal, Form, Input } from "antd";
+import { useEffect, useState, useRef } from "react";
 import styles from "../css/Line/Line.module.css";
+import "../css/Line/Modal.css";
 import CardTitle from "../components/Common/CardTitle";
 import FaultAlarm from "../components/FaultAlarm";
 import LifePrediction from "../components/LifePrediction";
@@ -18,6 +19,8 @@ import ChildSystemStatus from "../components/Line/ChildSystemStatus";
 import ColumnCharTemplate from "../components/Chars/ColumnCharTemplate";
 
 function Line() {
+
+  const childRef = useRef();
   const [carStatus, setCarStatus] = useState();
 
   const [faultAlarmList, setFaultAlarmList] = useState(null);
@@ -75,6 +78,47 @@ function Line() {
     getData6(faultParam);
     getData7(alarmParam);
   }, [alarmParam, faultParam]);
+// -====================
+  // 选中的车厢
+  const [resetId, setResetId] = useState(0); // 存储选中的车厢 ID
+  const [isModalVisible, setIsModalVisible] = useState(false); // 控制第一个模态框
+  const [isDoubleConfirmVisible, setDoubleConfirmVisible] = useState(false); // 控制二次确认模态框
+  const [consumedLifespan, setConsumedLifespan] = useState(''); // 存储输入的寿命消耗值
+  const [form] = Form.useForm(); // 创建表单实例
+  const handleResetClick = (id) => {
+    setConsumedLifespan('')
+    form.resetFields();    
+    setResetId(id)
+    setIsModalVisible(true); // 显示确认弹出框
+  };
+
+  const handleDoubleConfirmReset = async () => {
+    setDoubleConfirmVisible(false); // 关闭二次确认弹框
+    if (childRef.current) {
+      // console.log(childRef.current);
+      childRef.current.resetLifeVal(resetId, consumedLifespan); // 调用子组件的方法
+    }
+  };
+
+  const handleCancelReset = () => {
+    setIsModalVisible(false); // 关闭第一个弹出框
+  };
+
+  const handleDoubleCancelReset = async () => {
+    setDoubleConfirmVisible(false); // 关闭二次确认弹框
+  };
+  useEffect(() => {
+    if (isModalVisible) {
+      const input = document.getElementById("first-input");
+      if (input) {
+        input.focus();
+      }
+    }
+  }, [isModalVisible]);
+
+  // -=------------------
+
+
 
   // 样式
   const cardHeadStyle = {
@@ -86,7 +130,9 @@ function Line() {
   const cardBodyStyle = { padding: "0" };
 
   return (
+
     <div className={styles.main}>
+
       <div className={classNames(styles.divItem, "")}>
         <Card
           title={<CardTitle title="车辆状态列表" />}
@@ -100,10 +146,10 @@ function Line() {
         <Card
           title={<CardTitle title="子系统设备状态" />}
           // bodyStyle={cardBodyStyle}
-          bodyStyle={{padding:'0',height:'55vh',display:'flex',justifyContent:'center',alignItems:'center'}}
+          bodyStyle={{ padding: '0', height: '55vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
           headStyle={cardHeadStyle}
         >
-          <ChildSystemStatus {...carStatus}/>
+          <ChildSystemStatus {...carStatus} />
         </Card>
       </div>
       <div className={classNames(styles.divItem, "")}>
@@ -225,7 +271,7 @@ function Line() {
           title={<CardTitle title="寿命预测信息" />}
           bodyStyle={cardBodyStyle}
           headStyle={cardHeadStyle}
-           extra={
+          extra={
             <Button
               type="text"
               block
@@ -240,8 +286,55 @@ function Line() {
             </Button>
           }
         >
-          <LifePrediction data={lifePredictionList} tableHeight={30} />
+          <LifePrediction ref={childRef} data={lifePredictionList} onReset={handleResetClick} tableHeight={30} />
         </Card>
+      </div>
+      <div>
+        <Modal
+          title="寿命重置"
+          open={isModalVisible}
+          onOk={() => {
+            form.validateFields()
+              .then(values => {
+                setConsumedLifespan(values.consumedLifespan);
+                setDoubleConfirmVisible(true); // 显示二次确认弹框
+                setIsModalVisible(false);
+              })
+              .catch(info => {
+                console.log('Validate Failed:', info);
+              });
+          }}
+          onCancel={handleCancelReset}
+          okText="确认"
+          cancelText="取消"
+        >
+          <Form form={form} layout="vertical">
+            <Form.Item
+              name="consumedLifespan"
+              label="已消耗寿命"
+              rules={[{ required: true, message: '请输入已消耗寿命' }]} // 设置为必填
+            >
+              <Input
+                id="first-input"
+                value={consumedLifespan}
+                onChange={(e) => setConsumedLifespan(e.target.value)} // 更新输入值
+                placeholder={consumedLifespan + "请输入已消耗寿命"} // 输入框提示
+              />
+            </Form.Item>
+          </Form>
+        </Modal>
+        {/* 二次确认模态框 */}
+        <Modal
+          title="请再确认是否进行寿命重置"
+          open={isDoubleConfirmVisible}
+          onOk={handleDoubleConfirmReset}
+          onCancel={() => setDoubleConfirmVisible(false)} // 关闭二次确认模态框
+          okText="确认"
+          cancelText="取消"
+        //  className="custom-modal"
+        >
+          <p>你确定要重置车号为 {resetId} 的部件已消耗寿命为 {consumedLifespan} 吗？</p>
+        </Modal>
       </div>
     </div>
   );
