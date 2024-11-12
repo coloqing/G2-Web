@@ -107,14 +107,14 @@ function Line() {
   const handleDoubleCancelReset = async () => {
     setDoubleConfirmVisible(false); // 关闭二次确认弹框
   };
-  useEffect(() => {
-    if (isModalVisible) {
-      const input = document.getElementById("first-input");
-      if (input) {
-        input.focus();
-      }
-    }
-  }, [isModalVisible]);
+  // useEffect(() => {
+  //   if (isModalVisible) {
+  //     const input = document.getElementById("first-input");
+  //     if (input) {
+  //       input.focus();
+  //     }
+  //   }
+  // }, [isModalVisible]);
 
   // -=------------------
 
@@ -298,6 +298,11 @@ function Line() {
               .then(values => {
                 setConsumedLifespan(values.consumedLifespan);
                 setDoubleConfirmVisible(true); // 显示二次确认弹框
+                const inputElement = document.getElementById('first-input');
+                if (inputElement) {
+                  inputElement.blur();
+                }
+              
                 setIsModalVisible(false);
               })
               .catch(info => {
