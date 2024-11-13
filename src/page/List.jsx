@@ -345,7 +345,7 @@ export default function List(props) {
             }}
             onClick={() => download()}
           >
-            导出
+            列表导出
           </Button>
           <Button
             type="text"
@@ -357,7 +357,7 @@ export default function List(props) {
             }}
             onClick={() => navigate("/data")}
           >
-            筛选数据导出
+            筛选日志导出
           </Button>
           <div
             style={{
