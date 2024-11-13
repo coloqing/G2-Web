@@ -5,7 +5,7 @@ import ProgressBar from "../components/Common/ProgressBar";
 import { Link } from "react-router-dom";
 import MyTable from "../components/Common/MyTable";
 import commonApiController from "../api/common";
-import {_getCarList,} from "../Redux/carListSlice";
+import {_getCarList,_getCarLists} from "../Redux/carListSlice";
 import styles from "../css/List/List.module.css";
 import locale from "antd/es/date-picker/locale/zh_CN";
 import { Button } from "antd";
@@ -30,12 +30,54 @@ export default function List(props) {
 
   const carListStore = useSelector((state) => state.carList.carList);
   if (!carListStore.length) dispatch(_getCarList());
+  const markStore = useSelector((state) => state.carList.mark);
 
   useEffect(() => {
     if (carListStore.length) {
-      setCarList([{ id: 0, carName: "全部",carriageList:[] }].concat(carListStore))
+      setCarList([{ id: 0, carName: "全部", carriageList: [] }].concat(carListStore))
     }
-  }, [carListStore]);
+    if (!markStore.length) {
+      dispatch(_getCarLists());
+    }
+  }, [carListStore, markStore.length]);
+
+
+  // useEffect(() => {
+  //   if (carListStore.length) {
+  //     setCarList([{ id: 0, carName: "全部",carriageList:[] }].concat(carListStore))
+  //   }
+  // }, [carListStore]);
+
+  // ====================
+  const arr = [{ id: 0, carName: "全部" }];
+  // 检查 markStore 和 carListStore 中的匹配
+  if (markStore.length > 0 && carListStore.length > 0) {
+    markStore.forEach(markItem => {
+      carListStore.forEach(carItem => {
+        if (markItem.lch === carItem.carName) {
+          // 如果条件匹配，创建对象并添加到 arr 数组中
+          arr.push({
+            carName: carItem.carName,
+            id: carItem.id,
+            mainLine: markItem.mainLine || '', // 假设 markItem 中有 mainLine 属性
+            carriageList: carItem.carriageList
+          });
+        }
+        arr.sort((a, b) => {
+          if (a.mainLine === '离线' && b.mainLine !== '离线') {
+            return 1; // a 在 b 后面
+          } else if (a.mainLine !== '离线' && b.mainLine === '离线') {
+            return -1; // a 在 b 前面
+          }
+          return 0; // 保持原来的顺序
+        });
+
+      });
+    });
+    // console.log('符合条件的对象数组:', arr);
+  }
+
+
 
   /**
    * car 下拉
@@ -43,6 +85,8 @@ export default function List(props) {
    * @param {*} options
    */
   const onCarChange = (value, options) => {
+    let tmp = options.label.props.children;
+    options = { label: tmp, value: value }
     const selectCarItem = carList.find((item) => {
       return item.id === value;
     });
@@ -232,10 +276,18 @@ export default function List(props) {
               width: 120,
             }}
             onChange={onCarChange}
-            options={carList.map((element) => ({
-              label: element.carName,
+            options={arr.map((element) => ({
+              label: (
+                <span style={{ color: element.mainLine === '离线' ? 'rgb(125, 136, 163)' : (element.mainLine === '正线' ? 'rgb(65, 167, 81)' : '#1adaeb') }}>
+                  {element.carName}
+                </span>
+              ),
               value: element.id,
             }))}
+            // options={carList.map((element) => ({
+            //   label: element.carName,
+            //   value: element.id,
+            // }))}
             dropdownStyle={selectStyle}
           />
           车厢

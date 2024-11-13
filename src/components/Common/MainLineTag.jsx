@@ -12,7 +12,8 @@ export default function MainLineTag(props) {
   };
   if (name === "正线") {
     sty.backgroundColor = "#0f3116";
-    sty.color = "#41a751";
+    // sty.color = "#41a751";
+    sty.color = "#60ae46";
   }
   else if (name === "库内") {
     sty.backgroundColor = "#0f3116";
@@ -20,7 +21,8 @@ export default function MainLineTag(props) {
   }
   else if (name === "离线") {
     sty.backgroundColor = "#2d3341";
-    sty.color = "#7d88a3";
+    // sty.color = "#7d88a3";
+    sty.color = "#c0c0c0";
   }
 
   return <div style={sty}>{name}</div>;

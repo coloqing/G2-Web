@@ -1,11 +1,13 @@
-// import { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Space, Select } from "antd";
 import {
   _getCarList,
   setSelectData,
   setCarriageList,
+  _getCarLists,
 } from "../../Redux/carListSlice";
+// import lineStore from "../api/lineApi";
 import { useNavigate } from "react-router-dom";
 
 export default function SelectCarPart(props) {
@@ -15,10 +17,48 @@ export default function SelectCarPart(props) {
   // const searchParams = props.searchParams;
 
   const carListStore = useSelector((state) => state.carList.carList);
+  const markStore = useSelector((state) => state.carList.mark);
   const carriageListStore = useSelector((state) => state.carList.carriageList);
   const selectDataStore = useSelector((state) => state.carList.selectData);
-  if (!carListStore.length) dispatch(_getCarList());
+  // console.log('carListStore:', carListStore);
+  // if (!carListStore.length) dispatch(_getCarList());
+  // if (!markStore.length) dispatch(_getCarLists());
+  useEffect(() => {
+    if (!carListStore.length) {
+      dispatch(_getCarList());
+    }
+    if (!markStore.length) {
+      dispatch(_getCarLists());
+    }
+  }, [carListStore.length, markStore.length, dispatch]);
 
+  const arr=[];
+  // 检查 markStore 和 carListStore 中的匹配
+  if (markStore.length > 0 && carListStore.length > 0 && arr.length === 0) {
+    markStore.forEach(markItem => {
+      carListStore.forEach(carItem => {
+        if (markItem.lch === carItem.carName) {
+          // 如果条件匹配，创建对象并添加到 arr 数组中
+          arr.push({
+            carName: carItem.carName,
+            id: carItem.id,
+            mainLine: markItem.mainLine || '', // 假设 markItem 中有 mainLine 属性
+            carriageList:carItem.carriageList
+          });
+        }
+        arr.sort((a, b) => {
+          if (a.mainLine === '离线' && b.mainLine !== '离线') {
+            return 1; // a 在 b 后面
+          } else if (a.mainLine !== '离线' && b.mainLine === '离线') {
+            return -1; // a 在 b 前面
+          }
+          return 0; // 保持原来的顺序
+        });
+
+      });
+    });
+    // console.log('符合条件的对象数组:', arr);
+  }
 
   /**
    * car 下拉
@@ -26,9 +66,15 @@ export default function SelectCarPart(props) {
    * @param {*} options
    */
   const onCarChange = (value, options) => {
-    const selectCarItem = carListStore.find((item) => {
+    let tmp = options.label.props.children;
+    // console.log(value, options);
+    options = {label:tmp,value:value}
+    // console.log(value, options);
+    
+    const selectCarItem = arr.find((item) => {
       return item.id === value;
     });
+    // console.log('区分数组',arr, options.label,selectCarItem.carriageList);
 
     dispatch(setCarriageList(selectCarItem.carriageList));
 
@@ -54,6 +100,8 @@ export default function SelectCarPart(props) {
    * @param {*} value
    */
   const onCarriageChange = (value, options) => {
+
+    
     let newSelectData = { ...selectDataStore };
     newSelectData.carriageName = options.label;
     newSelectData.carriageId = value;
@@ -110,10 +158,18 @@ export default function SelectCarPart(props) {
           width: 120,
         }}
         onChange={onCarChange}
-        options={carListStore.map((element) => ({
-          label: element.carName,
+        options={arr.map((element) => ({
+          label: (
+            <span style={{ color: element.mainLine === '离线' ? 'rgb(125, 136, 163)' : 'rgb(65, 167, 81)' }}>
+              {element.carName}
+            </span>
+          ),
           value: element.id,
         }))}
+        // options={arr.map((element) => ({
+        //   label: element.carName,
+        //   value: element.id,
+        // }))}
         dropdownStyle={selectStyle}
       />
       {props.hideCarriage ? null : carriageHtml}

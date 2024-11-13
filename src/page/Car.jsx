@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 import styles from "../css/Car/Car.module.css";
-import { Row, Button, Col, Card, Radio, Select } from "antd";
+import { Row, Button, Col, Card, Radio, Select, Modal, Form, Input } from "antd";
 
 import Train from "../components/Common/Train";
 import SelectCarPart from "../components/Common/SelectCarPart";
@@ -84,40 +84,108 @@ function Car() {
   // 样式
   const cardHeadStyle = {
     height: "3.5vh",
-    padding:'0 0.5vw',
-    borderBottom:'1px solid #404447',
+    padding: '0 0.5vw',
+    borderBottom: '1px solid #404447',
+  };
+  const select = {
+    position: 'absolute', 
+    top: '50%', 
+    left: '50%', 
+    zIndex: 99999, 
+    color: '#ffffe6'
   };
   const cardBodyStyle = { padding: "1px 0px 0px 0px" };
 
   function jumpPart(carriage) {
     navigate(`/Part?car=${selectDataStore.carName}&part=${carriage}`);
   }
+  const [showTextBox, setShowTextBox] = useState(false);
 
+
+// -=====================
+    // 选中的车厢
+    const childRef = useRef();
+    const [resetId, setResetId] = useState(0); // 存储选中的车厢 ID
+    const [isModalVisible, setIsModalVisible] = useState(false); // 控制第一个模态框
+    const [isDoubleConfirmVisible, setDoubleConfirmVisible] = useState(false); // 控制二次确认模态框
+    const [consumedLifespan, setConsumedLifespan] = useState(''); // 存储输入的寿命消耗值
+    const [form] = Form.useForm(); // 创建表单实例
+    const handleResetClick = (id) => {
+      setConsumedLifespan('')
+      form.resetFields();    
+      setResetId(id)
+      setIsModalVisible(true); // 显示确认弹出框
+    };
+  
+    const handleDoubleConfirmReset = async () => {
+      setDoubleConfirmVisible(false); // 关闭二次确认弹框
+      if (childRef.current) {
+        // console.log(childRef.current);
+        childRef.current.resetLifeVal(resetId, consumedLifespan); // 调用子组件的方法
+      }
+    };
+  
+    const handleCancelReset = () => {
+      setIsModalVisible(false); // 关闭第一个弹出框
+    };
+  
+    const handleDoubleCancelReset = async () => {
+      setDoubleConfirmVisible(false); // 关闭二次确认弹框
+    };
+    // useEffect(() => {
+    //   if (isModalVisible) {
+    //     const input = document.getElementById("first-input");
+    //     if (input) {
+    //       input.focus();
+    //     }
+    //   }
+    // }, [isModalVisible]);
+  
+    // -=------------------
+
+
+ 
+  // const handleButtonClick = () => {
+  //   setShowTextBox(true);
+  // };
+ 
+  // const handleCloseClick = () => {
+  //   setShowTextBox(false);
+  // };
   return (
     <>
+ {/* <div>
+      <button onClick={handleButtonClick}>显示文本框</button>
+      {showTextBox && (
+        <div style={{ border: '1px solid #ccc', padding: '10px', marginTop: '10px' }}>
+          <input type="text" />
+          <button onClick={handleCloseClick}>关闭文本框</button>
+        </div>
+      )}
+    </div> */}
       <Row className={styles.topOutset}>
         <Col>
-        <div className={styles.topInside}>
-          <Row className={styles.top}>
-            <Col>
-              <div className={styles.Select}>
-                <SelectCarPart
-                  hideCarriage={true}
-                  searchParams={searchParams}
-                  page="car"
+          <div className={styles.topInside}>
+            <Row className={styles.top}>
+              <Col>
+                <div className={styles.Select}>
+                  <SelectCarPart
+                    hideCarriage={true}
+                    searchParams={searchParams}
+                    page="car"
+                  />
+                </div>
+              </Col>
+            </Row>
+            <Row className={styles.train} align="middle">
+              <Col span={22} offset={1}>
+                <Train
+                  showName="true"
+                  jumpPart={jumpPart}
+                  trainColorData={trainColorData}
                 />
-              </div>
-            </Col>
-          </Row>
-          <Row className={styles.train} align="middle">
-            <Col span={22} offset={1}>
-              <Train
-                showName="true"
-                jumpPart={jumpPart}
-                trainColorData={trainColorData}
-              />
-            </Col>
-          </Row>
+              </Col>
+            </Row>
           </div>
         </Col>
       </Row>
@@ -232,13 +300,65 @@ function Car() {
               bodyStyle={cardBodyStyle}
               headStyle={cardHeadStyle}
             >
-              <LifePrediction data={lifePredictionList} tableHeight={71} />
+              <LifePrediction ref={childRef} onReset={handleResetClick} data={lifePredictionList} tableHeight={71} />
             </Card>
           </div>
         </Col>
       </Row>
 
       <SearchParamDecode setSearchParams={setSearchParams} />
+      <div>
+        <Modal
+          title="寿命重置"
+          open={isModalVisible}
+          onOk={() => {
+            form.validateFields()
+              .then(values => {
+                setConsumedLifespan(values.consumedLifespan);
+                setDoubleConfirmVisible(true); // 显示二次确认弹框
+                const inputElement = document.getElementById('first-input');
+                if (inputElement) {
+                  inputElement.blur();
+                }
+              
+                setIsModalVisible(false);
+              })
+              .catch(info => {
+                console.log('Validate Failed:', info);
+              });
+          }}
+          onCancel={handleCancelReset}
+          okText="确认"
+          cancelText="取消"
+        >
+          <Form form={form} layout="vertical">
+            <Form.Item
+              name="consumedLifespan"
+              label="已消耗寿命"
+              rules={[{ required: true, message: '请输入已消耗寿命' }]} // 设置为必填
+            >
+              <Input
+                id="first-input"
+                value={consumedLifespan}
+                onChange={(e) => setConsumedLifespan(e.target.value)} // 更新输入值
+                placeholder={consumedLifespan + "请输入已消耗寿命"} // 输入框提示
+              />
+            </Form.Item>
+          </Form>
+        </Modal>
+        {/* 二次确认模态框 */}
+        <Modal
+          title="请再确认是否进行寿命重置"
+          open={isDoubleConfirmVisible}
+          onOk={handleDoubleConfirmReset}
+          onCancel={() => setDoubleConfirmVisible(false)} // 关闭二次确认模态框
+          okText="确认"
+          cancelText="取消"
+        //  className="custom-modal"
+        >
+          <p>你确定要重置车号为 {resetId} 的部件已消耗寿命为 {consumedLifespan} 吗？</p>
+        </Modal>
+      </div>
     </>
   );
 }
