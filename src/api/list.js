@@ -1,9 +1,7 @@
-
-
 import service from "./request";
 
 /**
- * 
+ *
  * @returns
  */
 const FaultAlarmStatusAlertPageListApi = function (info) {
@@ -16,10 +14,19 @@ const FaultAlarmStatusAlertPageListApi = function (info) {
   });
 };
 
+const RealTimeDataPageListApi = function (info) {
+  return service({
+    url: "/api/List/RealTimeData",
+    method: "GET",
+    params: {
+      ...info,
+    },
+  });
+};
 
 const apiController = {
-    FaultAlarmStatusAlertPageListApi,
-
+  FaultAlarmStatusAlertPageListApi,
+  RealTimeDataPageListApi,
 };
 
 export default apiController;

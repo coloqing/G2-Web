@@ -149,6 +149,34 @@ const DataToExcel = function (search, lch, cxh) {
   xhr.send();
 };
 
+const RealTimeDataToExcel = function (search) {
+  let xhr = new XMLHttpRequest();
+  xhr.open(
+    "GET",
+    window.MyConfig.baseUrl +
+      "/api/List/DataToExcel?lch=" +
+      search.lch +
+      "&cxh=" +
+      search.cxh +
+      "&startTime=" +
+      search.startTime +
+      "&endTime=" +
+      search.endTime +
+      "&pageIndex=1" +
+      "&pageSize=300000"
+  );
+  xhr.responseType = "blob";
+  xhr.onload = function () {
+    let blob = this.response;
+    let a = document.createElement("a");
+    a.href = window.URL.createObjectURL(blob);
+    let fileName = "实时数据导出-" + search.lch + ".xlsx";
+    a.download = fileName;
+    a.click();
+  };
+  xhr.send();
+};
+
 const apiController = {
   CarCarriageListApi,
   FaultToExcelApi,
@@ -161,6 +189,7 @@ const apiController = {
   CarColorListApi,
   DataToExcel,
   LifePredictionPageListApi,
+  RealTimeDataToExcel,
 };
 
 export default apiController;

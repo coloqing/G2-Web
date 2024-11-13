@@ -10,9 +10,11 @@ import {_getCarList,} from "../Redux/carListSlice";
 import styles from "../css/List/List.module.css";
 import locale from "antd/es/date-picker/locale/zh_CN";
 import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
 // import "dayjs/locale/zh-cn";
 
 export default function List(props) {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [search, setSearch] = useState({
     type: 0,
@@ -284,6 +286,18 @@ export default function List(props) {
               onClick={() => download()}
             >
               导出
+            </Button>
+            <Button
+              type="text"
+              block
+              style={{
+                width: "4vw",
+                height: "3.5vh",
+                fontWeight: "bold",
+              }}
+              onClick={() => navigate("/data")}
+            >
+              筛选数据导出
             </Button>
           <div
             style={{

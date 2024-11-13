@@ -4,6 +4,7 @@ import PartLifeList from "./page/PartLifeList";
 import Car from "./page/Car";
 import Part from "./page/Part";
 import List from "./page/List";
+import Data from "./page/Data";
 import "./App.css";
 import { ConfigProvider } from "antd";
 import zhCN from "antd/locale/zh_CN";
@@ -137,6 +138,7 @@ function App() {
           <Route path="/Car" element={<Car />} />
           <Route path="/Part" element={<Part />} />
           <Route path="/List" element={<List />} />
+          <Route path="/Data" element={<Data />} />
           <Route path="/PartLifeList" element={<PartLifeList />} />
 
           <Route path="/LineDemo" element={<LineDemo />} />
