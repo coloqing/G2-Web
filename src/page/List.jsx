@@ -114,7 +114,7 @@ export default function List(props) {
       );
       if (result?.rows) {
         setData(result.rows);
-        setTotal(result.total);
+        setTotal(result.records);
       }
     }
     if (search) {
