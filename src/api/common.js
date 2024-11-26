@@ -77,13 +77,13 @@ const LifePredictionPageListApi = function (carId, pageIndex, pageSize) {
   });
 };
 
-const UpdateLifePredictionApi = function (ids,value) {
+const UpdateLifePredictionApi = function (ids, value) {
   return service({
     url: "/api/Common/UpdateLifePrediction",
     method: "GET",
     params: {
       ids: ids,
-      servicelife:value,
+      servicelife: value,
     },
   });
 };
@@ -136,7 +136,8 @@ const DataToExcel = function (search, lch, cxh) {
       "&startTime=" +
       search.dateStart +
       "&endTime=" +
-      search.dateEnd
+      search.dateEnd +
+      "&pageSize=100000"
   );
   xhr.responseType = "blob";
   xhr.onload = function () {
