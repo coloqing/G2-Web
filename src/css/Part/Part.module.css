@@ -4,15 +4,24 @@
     border: 1px solid #404447;
     height: 79vh;
 }
-.topOutset{
+
+.topOutset {
     /* border: 1px solid red; */
-    width: 99.5vw;
+    width: 98.5vw;
     margin-left: 0.25vw;
     /* outline: 1px solid red; */
-    overflow:hidden;
-    
+    overflow: hidden;
 }
-.topInside{
+.aliTopOutset {
+    /* border: 1px solid red; */
+    width: 49.75vw;
+    margin-left: 0.25vw;
+    /* outline: 1px solid red; */
+    overflow: hidden;
+
+}
+
+.topInside {
     height: 32vh;
     width: 99.5vw;
     background-color: #191f2e;
@@ -21,6 +30,32 @@
     border: 1px solid #404447;
 
 }
+
+.aliTrain {
+    height: 18vh;
+    width: 98.5vw;
+    background-color: #191f2e;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    border: 1px solid #404447;
+}
+
+.aliTrainTemperature {
+    min-height: 18vh;
+    /* width: 99.5vw; */
+
+    width: 48.75vw;
+    /* 留0.5vw */
+    background-color: #191f2e;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    border: 1px solid #404447;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+
 .top {
     height: 5vh;
 }
@@ -36,31 +71,36 @@
 }
 
 .trainStatus {
-    height: 14vh;
+    /* height: 48vh; */
+    min-height: 18vh;
     /* border: 1px solid green; */
 }
 
 .content {
-    height: 66vh;
+    min-height: 33vh;
+    max-height: 66vh;
     /* border: 1px solid red; */
     margin-left: 0.25vw;
 }
 
 .bottomLeft {
-    width: 98%;
-    height: 65vh;
+    /* width: 98%; */
+    width: 48.75vw;
+    /* height: 65vh; */
     border: solid 1px #404447;
     /* margin-left: 0.5vw; */
 }
 
 .bottomright {
-    width: 99.5%;
+    /* width: 99.5%; */
+    width: 49.25vw;
 }
 
 .bottomrightImg {
     width: 100%;
     height: 40vh;
-    border: solid 1px #404447;
+    border-top: solid 1px #404447;
+    margin-top: 15px;
 }
 
 .bottomrightKeyData {

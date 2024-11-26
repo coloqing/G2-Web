@@ -68,8 +68,8 @@ const Part = () => {
   // 样式
   const cardHeadStyle = {
     height: "3.5vh",
-    padding:'0 0.5vw',
-    borderBottom:'1px solid #404447',
+    padding: '0 0.5vw',
+    borderBottom: '1px solid #404447',
   };
   const cardBodyStyle = {
     padding: "1px 0 0 0 ",
@@ -80,12 +80,20 @@ const Part = () => {
     padding: "1px 0 0 0 ",
     // height: "29vh",
   };
+  const cardFlexStyle = {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: '99.5vw',
+  }
 
   return (
     <>
+      {/* 顶部内容~列车 */}
       <Row className={styles.topOutset}>
         <Col>
-          <div className={styles.topInside}>
+          {/* 列车select */}
+          <div className={styles.aliTrain}>
             <Row className={styles.top}>
               <Col>
                 <div className={styles.Select}>
@@ -93,6 +101,7 @@ const Part = () => {
                 </div>
               </Col>
             </Row>
+            {/* 列车 */}
             <Row className={styles.train} align="middle">
               <Col span={22} offset={1}>
                 <Train
@@ -102,20 +111,85 @@ const Part = () => {
                 />
               </Col>
             </Row>
-            <Row className={styles.trainStatus} align="middle">
-              <Col span={22} offset={1} style={{ height: "100%" }}>
-                <CarriageStatusTop
-                  carriageId={
-                    selectDataStore.carName + selectDataStore.carriageName
-                  }
-                />
-              </Col>
-            </Row>
           </div>
         </Col>
       </Row>
-      <Row className={styles.content}>
-        <Col span={8}>
+      {/* 顶部内容~温度 */}
+      <div style={cardFlexStyle} >
+        {/* jz1 */}
+        <Row className={styles.aliTopOutset}>
+          <Col>
+            <div className={styles.aliTrainTemperature}>
+              {/* 温度 */}
+              <Row className={styles.trainStatus} align="middle">
+                <Col span={22} offset={1} style={{ height: "100%" }}>
+                  <CarriageStatusTop
+                    carriageId={
+                      selectDataStore.carName + selectDataStore.carriageName
+                    }
+                  />
+                </Col>
+                <Col span={24}>
+                  {/* 机组关键指标 */}
+                  <div
+                    bodyStyle={cardBodyStyleLeft}
+                    headStyle={cardHeadStyle}
+                    style={{
+                      marginTop: "35px",
+                    }}
+                  >
+                    {keyIndicatorsData ? (
+                      <KeyIndicators data={keyIndicatorsData.jz1} />
+                    ) : null}
+                  </div>
+                  <div className={styles.bottomrightImg}>
+                    <StatusRealTime statusData={statusData} />
+                  </div>
+                </Col>
+              </Row>
+            </div>
+          </Col>
+        </Row>
+
+        {/* jz2 */}
+        <Row className={styles.aliTopOutset}>
+          <Col>
+            <div className={styles.aliTrainTemperature}>
+              {/* 温度 */}
+              <Row className={styles.trainStatus} align="middle">
+                <Col span={22} offset={1} style={{ height: "100%" }}>
+                  <CarriageStatusTop
+                    carriageId={
+                      selectDataStore.carName + selectDataStore.carriageName
+                    }
+                  />
+                </Col>
+                <Col span={24}>
+                  {/* 机组关键指标 */}
+                  <div
+                    bodyStyle={cardBodyStyleLeft}
+                    headStyle={cardHeadStyle}
+                    style={{
+                      marginTop: "35px",
+                    }}
+                  >
+                    {keyIndicatorsData ? (
+                      <KeyIndicators data={keyIndicatorsData.jz1} />
+                    ) : null}
+                  </div>
+                  <div className={styles.bottomrightImg}>
+                    <StatusRealTime statusData={statusData} />
+                  </div>
+                </Col>
+              </Row>
+            </div>
+          </Col>
+        </Row>
+
+      </div>
+      {/* 底部内容 */}
+      <Row className={styles.content} style={{ width: "99.5vw" }}>
+        <Col span={12}>
           <div className={styles.bottomLeft}>
             <Card
               title={<CardTitle title="故障告警" />}
@@ -138,6 +212,10 @@ const Part = () => {
             >
               <FaultTableRealTime data={faultAlarmTableData} tableHeight={24} />
             </Card>
+          </div>
+        </Col>
+        <Col span={12}>
+          <div className={styles.bottomLeft}>
             <Card
               title={<CardTitle title="状态预警" />}
               bodyStyle={cardBodyStyle}
@@ -159,39 +237,6 @@ const Part = () => {
             >
               <AlertTableRealTime data={statuAlertTableData} tableHeight={24} />
             </Card>
-          </div>
-        </Col>
-        <Col span={16}>
-          <div className={styles.bottomright}>
-            <div className={styles.bottomrightImg}>
-              <StatusRealTime statusData={statusData} />
-            </div>
-            <div className={styles.bottomrightKeyData}>
-              <Card
-                title={<CardTitle title="关键指标数据(机组一)" />}
-                bodyStyle={cardBodyStyleLeft}
-                headStyle={cardHeadStyle}
-                style={{
-                  flex: "1 1 auto",
-                  border: "solid 1px #404447",
-                  marginRight: "5px",
-                }}
-              >
-                {keyIndicatorsData ? (
-                  <KeyIndicators data={keyIndicatorsData.jz1} />
-                ) : null}
-              </Card>
-              <Card
-                title={<CardTitle title="关键指标数据(机组二)" />}
-                bodyStyle={cardBodyStyleLeft}
-                headStyle={cardHeadStyle}
-                style={{ flex: "1 1 auto", border: "solid 1px #404447" }}
-              >
-                {keyIndicatorsData ? (
-                  <KeyIndicators data={keyIndicatorsData.jz2} />
-                ) : null}
-              </Card>
-            </div>
           </div>
         </Col>
       </Row>

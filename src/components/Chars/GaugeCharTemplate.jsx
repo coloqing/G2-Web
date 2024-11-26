@@ -60,7 +60,8 @@ export default function GaugeCharTemplate(props) {
       title: {
         offsetY: -40,
         style: {
-          fontSize: 20,
+          fontSize: 15,
+          // fontSize: 20,
           color: "#13a2b3",
         },
         formatter: () => data.value.toFixed(2) + data.unit,

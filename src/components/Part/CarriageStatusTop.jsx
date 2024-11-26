@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useWindowSize as useWindowSizeD } from "@react-hook/window-size";
 
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import partApiController from "../../api/part";
 import CarriageStatus from "./CarriageStatus";
 
@@ -17,7 +17,7 @@ export default function CarriageStatusTop(props) {
     if (carriageId) {
       getData1(carriageId);
     }
-  }, [carriageId,timer]);
+  }, [carriageId, timer]);
 
   let gaugeNum = statueData?.gauges?.length ?? 0;
   let fanNum = statueData?.gauges?.length ?? 0;
@@ -28,9 +28,9 @@ export default function CarriageStatusTop(props) {
     ((widthD / 24) * 22) / (gaugeNum + fanNum + verticalProgressBarNum);
   const heightYs = heightD * 0.17;
   let scale = 1;
+  let size = 190;
+  if (widthYs < size || heightYs < size)
+    scale = (widthYs > heightYs ? heightYs : widthYs) / size;
 
-  if (widthYs < 150 || heightYs < 150)
-    scale = (widthYs > heightYs ? heightYs : widthYs) / 150;
-
-  return <CarriageStatus data={statueData} scale={scale} />;
+  return <CarriageStatus data={statueData} scale={scale}/>;
 }

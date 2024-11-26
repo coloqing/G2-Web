@@ -14,23 +14,27 @@ export default function KeyIndicators(props) {
   let verticalProgressBarNum = statueData?.gauges?.length ?? 0;
 
   const [widthD, heightD] = useWindowSizeD();
+  // const widthYs =
+  //   ((widthD / 3) * 2 * 2) / (gaugeNum + fanNum + verticalProgressBarNum);
+  // const heightYs = heightD * 0.11;
   const widthYs =
-    ((widthD / 3) * 2 * 2) / (gaugeNum + fanNum + verticalProgressBarNum);
-  const heightYs = heightD * 0.11;
+    ((widthD / 24) * 22) / (gaugeNum + fanNum + verticalProgressBarNum);
+  const heightYs = heightD * 0.17;
   let scale = 1;
-  let size = 150;
+  let size = 190;
 
   if (widthYs < size || heightYs < size)
     scale = (widthYs > heightYs ? heightYs : widthYs) / size;
 
-  // console.log(`宽度${widthYs},高度${heightYs} 变形${scale}`);
+  // console.log(`宽度${widthYs},高度${heightYs} 变形${scale}`); styles.gaugeChar
 
   return (
     <div>
       <div className={styles.keyIndicatorsTop}>
+        {/* <CarriageStatus data={statueData}/> */}
         <CarriageStatus data={statueData} scale={scale} />
       </div>
-      <div className={styles.keyIndicatorsBottom}>
+      <div className={styles.keyIndicatorsBottom} style={{ marginTop: "30px" }}>
         <span />
         <PropertyBox data={data?.attributes[0]} />
         <span />

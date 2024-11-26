@@ -52,10 +52,10 @@ export default function CarriageStatus(props) {
   }
 
   return (
-    <div className={styles.main} style={gaugeCharMainSty}>
-      {FanTemplates}
-      {GaugeCharTemplates}
-      {VerticalProgressBarTemplates}
-    </div>
+      <div className={styles.main} style={gaugeCharMainSty}>
+        {FanTemplates}
+        {GaugeCharTemplates}
+        {VerticalProgressBarTemplates}
+      </div>
   )
 }

@@ -8,8 +8,10 @@
 }
 
 .gaugeChar{
-    width: 140px;
-    height: 140px;
+    /* width: 140px; */
+    /* height: 140px; */
+    width: 145px;
+    height: 120px;
     /* border: 1px solid blue; */
     color: white;
     margin: 0 15px;
@@ -19,7 +21,7 @@
 }
 
 .verticalBar{
-    width: 160px;
+    width: 140px;
     /* height: 140px; */
     margin: 0 15px;
     /* border: 1px solid blue; */

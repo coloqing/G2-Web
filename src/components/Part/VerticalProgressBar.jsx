@@ -46,7 +46,7 @@ export default function VerticalProgressBar(props) {
         <div className={styles.right}>{vps}</div>
       </div>
       <div className={styles.bottom}>
-        <span>
+        <span className={data.value >= 1800 ? styles.color : ''} >
           {data.title} 
           {data.value}
           {data.unit}
