@@ -47,7 +47,7 @@
     width: 48.75vw;
     /* 留0.5vw */
     background-color: #191f2e;
-    margin-top: 1vh;
+    /* margin-top: 1vh; */
     margin-bottom: 1vh;
     border: 1px solid #404447;
     display: flex;
@@ -72,6 +72,7 @@
 
 .trainStatus {
     /* height: 48vh; */
+    width: 100%;
     min-height: 18vh;
     /* border: 1px solid green; */
 }

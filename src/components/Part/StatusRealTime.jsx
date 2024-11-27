@@ -9,7 +9,8 @@ import CardTitle from "../Common/CardTitle";
 
 export default function StatusRealTime(props) {
   const statusData = props.statusData;
-
+  // console.log("statusData", statusData)
+  const carriageType = props.carriageType;
   // 样式
   const cardHeadStyle = {
     height: "3.5vh",
@@ -37,9 +38,15 @@ export default function StatusRealTime(props) {
 
     // img 方案
     // if (statusData.state) imageSrc = imgRun;
+    let data
+    if(carriageType === '2'){
+      data = statusData.data1
+    }else{
+      data = statusData.data
+    }
 
-    for (let i = 0; i < statusData.data.length; i++) {
-      const ele = statusData.data[i];
+    for (let i = 0; i < data.length; i++) {
+      const ele = data[i];
       details.push(
         ele ? (
           <span

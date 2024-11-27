@@ -19,7 +19,6 @@ import { useSelector } from "react-redux";
 
 const Part = () => {
   const [searchParams, setSearchParams] = useState(null);
-
   const [faultAlarmTableData, setFaultAlarmTableData] = useState(null);
   const [statuAlertTableData, setStatusAlertTableData] = useState(null);
   const [keyIndicatorsData, setKeyIndicatorsData] = useState(null);
@@ -29,6 +28,7 @@ const Part = () => {
   const navigate = useNavigate();
   const selectDataStore = useSelector((state) => state.carList.selectData);
   const timer = useSelector((state) => state.timer.timer);
+  const typeJz = ['1','2']
   useEffect(() => {
     async function getData1(id) {
       const result = await partApiController.FaultAlarmListByCarriageApi(id);
@@ -64,7 +64,6 @@ const Part = () => {
   function jumpPart(carriage) {
     navigate(`/Part?car=${selectDataStore.carName}&part=${carriage}`);
   }
-
   // 样式
   const cardHeadStyle = {
     height: "3.5vh",
@@ -125,15 +124,14 @@ const Part = () => {
                 <Col span={22} offset={1} style={{ height: "100%" }}>
                   <CarriageStatusTop
                     carriageId={
-                      selectDataStore.carName + selectDataStore.carriageName
+                      selectDataStore.carName + selectDataStore.carriageName 
                     }
+                    carriageType={typeJz[0]}
                   />
                 </Col>
                 <Col span={24}>
                   {/* 机组关键指标 */}
                   <div
-                    bodyStyle={cardBodyStyleLeft}
-                    headStyle={cardHeadStyle}
                     style={{
                       marginTop: "35px",
                     }}
@@ -143,7 +141,7 @@ const Part = () => {
                     ) : null}
                   </div>
                   <div className={styles.bottomrightImg}>
-                    <StatusRealTime statusData={statusData} />
+                    <StatusRealTime statusData={statusData}  carriageType={typeJz[0]} />
                   </div>
                 </Col>
               </Row>
@@ -162,23 +160,22 @@ const Part = () => {
                     carriageId={
                       selectDataStore.carName + selectDataStore.carriageName
                     }
+                    carriageType={typeJz[1]}
                   />
                 </Col>
                 <Col span={24}>
                   {/* 机组关键指标 */}
                   <div
-                    bodyStyle={cardBodyStyleLeft}
-                    headStyle={cardHeadStyle}
                     style={{
                       marginTop: "35px",
                     }}
                   >
                     {keyIndicatorsData ? (
-                      <KeyIndicators data={keyIndicatorsData.jz1} />
+                      <KeyIndicators data={keyIndicatorsData.jz2} />
                     ) : null}
                   </div>
                   <div className={styles.bottomrightImg}>
-                    <StatusRealTime statusData={statusData} />
+                    <StatusRealTime statusData={statusData}  carriageType={typeJz[1]} />
                   </div>
                 </Col>
               </Row>
@@ -187,6 +184,10 @@ const Part = () => {
         </Row>
 
       </div>
+
+
+
+      
       {/* 底部内容 */}
       <Row className={styles.content} style={{ width: "99.5vw" }}>
         <Col span={12}>

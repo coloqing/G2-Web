@@ -17,7 +17,7 @@ export default function Fan(props) {
   }
   return (
     <div style={block}>
-      <div style={title} >机组一</div>
+      <div style={title} >{props.statueType == '1'? "机组一" : '机组二'}</div>
       <div
         style={{
           // border: "1px solid red",
@@ -28,7 +28,7 @@ export default function Fan(props) {
           alignItems: 'center'
         }}
       >
-        {props.run ? (
+        { (props.statueType == '1' ? props.run : props.run1) ? (
           <img src={blue} alt="" width={"100px"} height={"100px"} />
         ) : (
           <img src={white} alt="" width={"100px"} height={"100px"} />
@@ -39,7 +39,7 @@ export default function Fan(props) {
             fontSize: '1vw',
           }}
         >
-          {props.title}
+          {props.statueType == '1' ? props.title : props.title1}
         </div>
       </div>
     </div>

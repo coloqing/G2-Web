@@ -7,6 +7,7 @@ import CarriageStatus from "./CarriageStatus";
 
 export default function CarriageStatusTop(props) {
   const carriageId = props.carriageId;
+  const carriageType = props.carriageType;
   const [statueData, setStatusData] = useState(null);
   const timer = useSelector((state) => state.timer.timer);
   useEffect(() => {
@@ -31,6 +32,6 @@ export default function CarriageStatusTop(props) {
   let size = 190;
   if (widthYs < size || heightYs < size)
     scale = (widthYs > heightYs ? heightYs : widthYs) / size;
-
-  return <CarriageStatus data={statueData} scale={scale}/>;
+// console.log('data:',statueData)
+  return <CarriageStatus data={statueData} type={carriageType} scale={scale}/>;
 }
