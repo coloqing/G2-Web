@@ -66,7 +66,9 @@ export default function Data() {
   const onCarriageChange = (value, options) => {
     let newsearch = { ...search };
     newsearch.cxid = value;
+
     newsearch.cxh = options.label;
+    if (options.label === "全部") newsearch.cxh = 0;
     setSearch(newsearch);
   };
 
